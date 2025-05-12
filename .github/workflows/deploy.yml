@@ -1,0 +1,22 @@
+name: Deploy static website
+
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to killercoda
+        run: |
+          echo "$SSH_PRIVATE_KEY"  > private_key.pem
+          chmod 600 private_key.pem
+          rsync -avz -e "ssh -i private_key.pem -o StrictHostKeyChecking=no" ./ ubuntu@YOUR_KILLERCODA_IP:/var/www/html
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
