@@ -17,6 +17,6 @@ jobs:
         run: |
           echo "$SSH_PRIVATE_KEY"  > private_key.pem
           chmod 600 private_key.pem
-          rsync -avz -e "ssh -i private_key.pem -o StrictHostKeyChecking=no" ./ ubuntu@YOUR_KILLERCODA_IP:/var/www/html
+          rsync -avz -e "ssh -i private_key.pem -o StrictHostKeyChecking=no" ./ ubuntu@148.113.9.238:/var/www/html
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
